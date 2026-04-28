@@ -1,0 +1,19 @@
+# 超大数据集 & 模型（绝对不能上传）
+datasets/
+model/
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+
+# 系统 & IDE 配置
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo

@@ -1,4 +1,5 @@
 import argparse
+import json
 import os
 from typing import List, Tuple
 
@@ -36,6 +37,8 @@ def parse_args() -> argparse.Namespace:
                         help="Number of skip connections (must match training).")
     parser.add_argument("--device", type=str, default="cuda",
                         help="Device: 'cuda' or 'cpu'. Default: cuda if available.")
+    parser.add_argument("--output_dir", type=str, default=None,
+                        help="Directory to save persistent evaluation results as JSON.")
     return parser.parse_args()
 
 
@@ -94,7 +97,7 @@ def load_model(args: argparse.Namespace, device: torch.device) -> torch.nn.Modul
     return net
 
 
-def evaluate_dataset(args: argparse.Namespace) -> None:
+def evaluate_dataset(args: argparse.Namespace) -> dict:
     device = torch.device(
         args.device if args.device == "cpu" or torch.cuda.is_available() else "cpu"
     )
@@ -174,6 +177,42 @@ def evaluate_dataset(args: argparse.Namespace) -> None:
     print(
         f"  HD95:  mean={hd95_mean:.4f}, 95% CI=({hd95_l:.4f}, {hd95_u:.4f})"
     )
+
+    result = {
+        "dataset_name": args.dataset_name,
+        "num_cases": len(dice_list),
+        "ckpt": args.ckpt,
+        "img_dir": args.img_dir,
+        "mask_dir": args.mask_dir,
+        "img_size": args.img_size,
+        "num_classes": args.num_classes,
+        "vit_name": args.vit_name,
+        "n_skip": args.n_skip,
+        "device": str(device),
+        "metrics": {
+            "dice": {
+                "mean": dice_mean,
+                "ci95": [dice_l, dice_u],
+            },
+            "hd95": {
+                "mean": hd95_mean,
+                "ci95": [hd95_l, hd95_u],
+            },
+        },
+        "per_case": [
+            {"dice": dice, "hd95": hd95}
+            for dice, hd95 in zip(dice_list, hd95_list)
+        ],
+    }
+
+    if args.output_dir is not None:
+        os.makedirs(args.output_dir, exist_ok=True)
+        output_path = os.path.join(args.output_dir, f"{args.dataset_name}_metrics.json")
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
+        print(f"  Saved results: {output_path}")
+
+    return result
 
 
 if __name__ == "__main__":

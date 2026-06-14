@@ -10,6 +10,17 @@ LOG_PATH="$OUTPUT_DIR/summary.log"
 
 python eval_2d_datasets.py \
   --ckpt "$CKPT" \
+  --dataset_name "Augtrain" \
+  --img_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/augtrain_PNG/image" \
+  --mask_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/augtrain_PNG/mask" \
+  --img_size 224 \
+  --num_classes 2 \
+  --vit_name "R50-ViT-B_16" \
+  --n_skip 3 \
+  --output_dir "$OUTPUT_DIR" | tee -a "$LOG_PATH"
+
+python eval_2d_datasets.py \
+  --ckpt "$CKPT" \
   --dataset_name "TN3K" \
   --img_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/TN3K/test/images" \
   --mask_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/TN3K/test/masks" \
@@ -57,17 +68,6 @@ python eval_2d_datasets.py \
   --dataset_name "TN5K" \
   --img_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/TN5K/test/images" \
   --mask_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/TN5K/test/masks" \
-  --img_size 224 \
-  --num_classes 2 \
-  --vit_name "R50-ViT-B_16" \
-  --n_skip 3 \
-  --output_dir "$OUTPUT_DIR" | tee -a "$LOG_PATH"
-
-python eval_2d_datasets.py \
-  --ckpt "$CKPT" \
-  --dataset_name "Augtrain" \
-  --img_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/augtrain_PNG/image" \
-  --mask_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/augtrain_PNG/mask" \
   --img_size 224 \
   --num_classes 2 \
   --vit_name "R50-ViT-B_16" \

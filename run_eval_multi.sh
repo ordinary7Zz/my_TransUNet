@@ -10,6 +10,17 @@ LOG_PATH="$OUTPUT_DIR/summary.log"
 
 python eval_2d_datasets.py \
   --ckpt "$CKPT" \
+  --dataset_name "FinalData" \
+  --img_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/finall_data/image" \
+  --mask_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/finall_data/mask" \
+  --img_size 224 \
+  --num_classes 2 \
+  --vit_name "R50-ViT-B_16" \
+  --n_skip 3 \
+  --output_dir "$OUTPUT_DIR" | tee -a "$LOG_PATH"
+
+python eval_2d_datasets.py \
+  --ckpt "$CKPT" \
   --dataset_name "Augtrain" \
   --img_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/augtrain_PNG/image" \
   --mask_dir "/mnt/wangbd8/workspace/DataSets/ThyroidAgent/augtrain_PNG/mask" \

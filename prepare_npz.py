@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from PIL import Image
+from tqdm import tqdm
 
 # 1. 修改成你自己的路径
 img_dir = '/mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/image'
@@ -30,7 +31,7 @@ def find_same_stem_file(directory: str, stem: str, exts=valid_ext) -> str:
         raise RuntimeError(f"Multiple masks found for stem='{stem}': {candidates}. Keep exactly one.")
     return candidates[0]
 
-for fname in img_files:
+for fname in tqdm(img_files, desc="Converting"):
     stem = os.path.splitext(fname)[0]          # e.g. 'case0001_slice000'
     img_path = os.path.join(img_dir, fname)
     mask_path = find_same_stem_file(mask_dir, stem, valid_ext)
@@ -52,4 +53,4 @@ for fname in img_files:
     out_path = os.path.join(out_dir, stem + '.npz')
     np.savez(out_path, image=img_np, label=mask_np)
 
-    print('saved', out_path)
+print(f"Done. {len(img_files)} npz files saved to {out_dir}")

@@ -53,7 +53,7 @@ list_dir = './datasets/dataset_4'
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python train.py \
-  --dataset TG_Video \
+  --dataset Synapse \
   --root_path /mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/npz/npz_img \
   --list_dir /mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/npz \
   --vit_name R50-ViT-B_16 \

@@ -68,8 +68,6 @@ def trainer_synapse(args, model, snapshot_path):
             writer.add_scalar('info/total_loss', loss, iter_num)
             writer.add_scalar('info/loss_ce', loss_ce, iter_num)
 
-            logging.info('iteration %d : loss : %f, loss_ce: %f' % (iter_num, loss.item(), loss_ce.item()))
-
             if iter_num % 20 == 0:
                 # 当 batch_size=1 时，取第 0 张；否则取第 1 张，避免越界
                 idx = 1 if image_batch.size(0) > 1 else 0
@@ -91,8 +89,6 @@ def trainer_synapse(args, model, snapshot_path):
             save_mode_path = os.path.join(snapshot_path, 'epoch_' + str(epoch_num) + '.pth')
             torch.save(model.state_dict(), save_mode_path)
             logging.info("save model to {}".format(save_mode_path))
-            iterator.close()
-            break
 
     writer.close()
     return "Training Finished!"

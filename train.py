@@ -64,9 +64,10 @@ if __name__ == "__main__":
             'num_classes': 2,
         },
     }
-    args.num_classes = dataset_config[dataset_name]['num_classes']
-    args.root_path = dataset_config[dataset_name]['root_path']
-    args.list_dir = dataset_config[dataset_name]['list_dir']
+    if dataset_name in dataset_config:
+        args.num_classes = dataset_config[dataset_name]['num_classes']
+        args.root_path = dataset_config[dataset_name]['root_path']
+        args.list_dir = dataset_config[dataset_name]['list_dir']
     args.is_pretrain = True
     if args.output_dir is not None:
         snapshot_path = args.output_dir
@@ -95,5 +96,5 @@ if __name__ == "__main__":
     net = ViT_seg(config_vit, img_size=args.img_size, num_classes=config_vit.n_classes).cuda()
     net.load_from(weights=np.load(config_vit.pretrained_path))
 
-    trainer = {'Synapse': trainer_synapse,}
-    trainer[dataset_name](args, net, snapshot_path)
+    trainer = {'Synapse': trainer_synapse}
+    trainer.get(dataset_name, trainer_synapse)(args, net, snapshot_path)

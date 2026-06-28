@@ -1,4 +1,75 @@
-# TransUNet 推理与评估运行指南
+# TransUNet 运行指南
+
+---
+
+## 0. 训练模型
+
+### 下载预训练 ViT 权重
+
+```bash
+wget https://storage.googleapis.com/vit_models/imagenet21k/R50-ViT-B_16.npz
+mkdir -p ../model/vit_checkpoint/imagenet21k
+mv R50-ViT-B_16.npz ../model/vit_checkpoint/imagenet21k/
+```
+
+### 准备数据
+
+如果你的数据是 PNG/JPG 图像 + 标注掩码，需要先转为 `.npz` 格式：
+
+**① 用 `prepare_npz.py` 将图像转为 npz**
+
+修改脚本中三个路径，然后运行：
+
+```python
+img_dir  = '/path/to/raw/train/images'    # 原始图像目录
+mask_dir = '/path/to/raw/train/masks'     # 标注目录（文件名与图像一致）
+out_dir  = './datasets/dataset_4/train'   # npz 输出目录
+```
+
+每张图像生成一个 `.npz`，含 `image`（float32 灰度）和 `label`（int32 二值掩码 0/1）。
+
+**② 用 `make_train_list.py` 生成文件列表**
+
+```python
+npz_dir = './datasets/dataset_4/train'
+list_dir = './datasets/dataset_4'
+```
+
+生成 `train.txt`，每行一个文件名（无扩展名）。
+
+最终目录结构：
+```
+./datasets/dataset_4/
+├── train/
+│   ├── case0001.npz
+│   ├── case0002.npz
+│   └── ...
+└── train.txt
+```
+
+数据集可放在任意路径，训练时通过 `--root_path` 和 `--list_dir` 指定。
+
+### 运行训练
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python train.py \
+  --dataset TG_Video \
+  --root_path /mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/image \
+  --list_dir /mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/mask \
+  --vit_name R50-ViT-B_16 \
+  --img_size 224 \
+  --num_classes 2 \
+  --batch_size 24 \
+  --max_epochs 50 \
+  --base_lr 0.0001 \
+  --n_skip 3 \
+  --seed 42 \
+  --output_dir ./my_model/TG_Video
+```
+
+关键参数：显存不足可降低 `--batch_size`（如 12 或 6），并等比降低 `--base_lr`。
+
+> **权重保存路径**：`--output_dir` 自定义权重目录；不指定则自动拼成 `../model/TU_Synapse224/TU_pretrain_R50-ViT-B_16_skip3_epo150_bs24_224/`。权重文件如 `epoch_149.pth`。
 
 ---
 

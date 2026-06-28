@@ -3,11 +3,11 @@ import numpy as np
 from PIL import Image
 
 # 1. 修改成你自己的路径
-img_dir = '/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/Superimposed_experiment/dataset_4/train/images'
-mask_dir = '/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/Superimposed_experiment/dataset_4/train/masks'
+img_dir = '/mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/image'
+mask_dir = '/mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/mask'
 
 # 2. 输出到项目期望路径（相对 TransUNet）
-out_dir = './datasets/dataset_4/train'
+out_dir = '/mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/npz/npz_img'
 os.makedirs(out_dir, exist_ok=True)
 
 # 3. 收集所有图像文件名

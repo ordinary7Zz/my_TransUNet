@@ -78,7 +78,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py \
   --base_lr 0.0001 \
   --n_skip 3 \
   --seed 42 \
-  --output_dir ./my_model/TG_Video
+  --output_dir ./my_model/Nodule
 ```
 
 关键参数：显存不足可降低 `--batch_size`（如 12 或 6），并等比降低 `--base_lr`。

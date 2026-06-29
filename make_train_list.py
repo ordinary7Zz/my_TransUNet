@@ -1,7 +1,7 @@
 import os
 
-npz_dir = r'/mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/npz/npz_img'  # 改成你实际的npz目录
-list_dir = r'/mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/npz'
+npz_dir = r'/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/Superimposed_experiment/dataset_4/train/npz/npz_img'  # 改成你实际的npz目录
+list_dir = r'/mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/Superimposed_experiment/dataset_4/train/npz'
 os.makedirs(list_dir, exist_ok=True)
 
 npz_files = sorted([f for f in os.listdir(npz_dir) if f.endswith('.npz')])

@@ -68,8 +68,8 @@ CUDA_VISIBLE_DEVICES=0 python train.py \
 
 CUDA_VISIBLE_DEVICES=0 python train.py \
   --dataset Synapse \
-  --root_path /mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/npz/npz_img \
-  --list_dir /mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/npz \
+  --root_path /mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/Superimposed_experiment/dataset_4/train/npz/npz_img \
+  --list_dir /mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/Superimposed_experiment/dataset_4/train/npz \
   --vit_name R50-ViT-B_16 \
   --img_size 224 \
   --num_classes 2 \

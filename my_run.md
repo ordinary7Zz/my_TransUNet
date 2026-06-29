@@ -60,7 +60,7 @@ CUDA_VISIBLE_DEVICES=0 python train.py \
   --img_size 224 \
   --num_classes 2 \
   --batch_size 24 \
-  --max_epochs 50 \
+  --max_epochs 20 \
   --base_lr 0.0001 \
   --n_skip 3 \
   --seed 42 \

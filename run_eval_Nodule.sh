@@ -2,7 +2,7 @@
 
 # 修改为你的模型权重路径，比如训练时生成的 epoch_9.pth 或 best_model.pth
 CKPT="/mnt/wangbd8/workspace/ThyroidAgent/TransUNet/model/TU_Synapse224/TU_pretrain_R50-ViT-B_16_skip3_epo10_bs2_224/epoch_9.pth"
-OUTPUT_DIR="./eval_results/$(date +%Y%m%d_%H%M%S)"
+OUTPUT_DIR="./eval_results/Nodule/$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$OUTPUT_DIR"
 LOG_PATH="$OUTPUT_DIR/summary.log"
 

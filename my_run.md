@@ -60,7 +60,21 @@ CUDA_VISIBLE_DEVICES=0 python train.py \
   --img_size 224 \
   --num_classes 2 \
   --batch_size 24 \
-  --max_epochs 20 \
+  --max_epochs 50 \
+  --base_lr 0.0001 \
+  --n_skip 3 \
+  --seed 42 \
+  --output_dir ./my_model/TG_Video
+
+CUDA_VISIBLE_DEVICES=0 python train.py \
+  --dataset Synapse \
+  --root_path /mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/npz/npz_img \
+  --list_dir /mnt/wangbd8/workspace/DataSets/ThyroidAgent/TGVideo_PNG/train/npz \
+  --vit_name R50-ViT-B_16 \
+  --img_size 224 \
+  --num_classes 2 \
+  --batch_size 24 \
+  --max_epochs 50 \
   --base_lr 0.0001 \
   --n_skip 3 \
   --seed 42 \

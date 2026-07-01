@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 修改为你的模型权重路径，比如训练时生成的 epoch_9.pth 或 best_model.pth
-CKPT="/mnt/wangbd8/workspace/ThyroidAgent/TransUNet/my_model/TG_Video/epoch_4.pth"
+CKPT="/mnt/wangbd8/workspace/ThyroidAgent/TransUNet/my_model/TG_Video/epoch_49.pth"
 OUTPUT_DIR="./eval_results/TG_Video/$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$OUTPUT_DIR"
 LOG_PATH="$OUTPUT_DIR/summary.log"

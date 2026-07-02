@@ -59,15 +59,11 @@ if __name__ == "__main__":
     dataset_name = args.dataset
     dataset_config = {
         'Synapse': {
-            'root_path': './datasets/dataset_4/train',
-            'list_dir': './datasets/dataset_4',
             'num_classes': 2,
         },
     }
     if dataset_name in dataset_config:
         args.num_classes = dataset_config[dataset_name]['num_classes']
-        args.root_path = dataset_config[dataset_name]['root_path']
-        args.list_dir = dataset_config[dataset_name]['list_dir']
     args.is_pretrain = True
     if args.output_dir is not None:
         snapshot_path = args.output_dir

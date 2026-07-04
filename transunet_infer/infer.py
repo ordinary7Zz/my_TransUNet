@@ -167,6 +167,12 @@ def infer_one(net: torch.nn.Module, img_path: str,
 def calculate_metric(pred: np.ndarray, gt: np.ndarray) -> Tuple[float, float]:
     """计算单例 Dice 和 HD95 (二分类)。
 
+    边界情况处理与项目原始 utils.calculate_metric_percase 保持一致：
+      - 有预测、有GT: 正常计算
+      - 有预测、无GT (假阳性): dice=1, hd95=0
+      - 无预测、有GT (假阴性): dice=0, hd95=0
+      - 都为空 (真阴性): dice=0, hd95=0
+
     Returns:
         (dice, hd95)
     """
@@ -178,14 +184,9 @@ def calculate_metric(pred: np.ndarray, gt: np.ndarray) -> Tuple[float, float]:
         hd95 = metric.binary.hd95(pred_bin, gt_bin)
         return float(dice), float(hd95)
     elif pred_bin.sum() > 0 and gt_bin.sum() == 0:
-        # 有预测无 GT → 假阳性，Dice 定义为 0
-        return 0.0, 0.0
-    elif pred_bin.sum() == 0 and gt_bin.sum() > 0:
-        # 无预测有 GT → 假阴性，Dice=0, HD95 设大值
-        return 0.0, float(pred_bin.shape[0] + pred_bin.shape[1])
-    else:
-        # 都为空 → 完美预测
         return 1.0, 0.0
+    else:
+        return 0.0, 0.0
 
 
 def mean_ci95(values: List[float]) -> Tuple[float, float, float]:

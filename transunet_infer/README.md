@@ -73,7 +73,7 @@ python infer.py \
 python infer.py \
     --ckpt /mnt/wangbd8/workspace/ThyroidAgent/TransUNet/my_model/Nodule/epoch_49.pth \
     --img_dir /mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/TN3K/test/images \
-    --gt_dir /mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/TN3K/test/mask \
+    --gt_dir /mnt/wangbd8/workspace/DataSets/ThyroidAgent/train_val_test/TN3K/test/masks \
     --log ./eval_log.txt
 ```
 
